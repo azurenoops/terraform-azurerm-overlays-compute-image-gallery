@@ -5,7 +5,7 @@
 # Azure Compute Image - Default is "false"
 #---------------------------------------------------------------
 
-resource "azurerm_compute_image" "compute_image" {
+resource "azurerm_shared_image" "compute_image" {
   for_each            = { for x in var.compute_images_definitions : x.name => x }
   name                = each.value.name
   gallery_name        = azurerm_shared_image_gallery.compute_image_gallery.name
@@ -46,3 +46,19 @@ resource "azurerm_compute_image" "compute_image" {
   tags = each.value.tags
 
 }
+
+/* resource "azurerm_shared_image_version" "example" {
+  for_each            = { for x in var.compute_images_definitions : x.name => x }
+  name                = each.value.name
+  gallery_name        = azurerm_shared_image_gallery.compute_image_gallery.name
+  image_name          = azurerm_shared_image.compute_image.name
+  resource_group_name = local.resource_group_name
+  location            = local.location
+  managed_image_id    = azurerm_shared_image.compute_image.id
+
+  target_region {
+    name                   = local.location
+    regional_replica_count = 5
+    storage_account_type   = "Standard_LRS"
+  }
+} */
