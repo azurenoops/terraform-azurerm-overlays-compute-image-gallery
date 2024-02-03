@@ -28,3 +28,9 @@ variable "custom_resource_group_name" {
   type        = string
   default     = null
 }
+
+variable "custom_compute_image_gallery_name" {
+  description = "Custom Azure compute Image Gallery, generated if not set"
+  type        = string
+  default     = ""
+}
